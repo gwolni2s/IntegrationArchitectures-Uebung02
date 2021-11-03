@@ -16,9 +16,14 @@ public class SalesmenController {
         this.salesmenService = salesmenService;
     }
 
-    @GetMapping
+    @GetMapping(path = "/all")
     public List<Salesmen> getSalesmen() {
         return salesmenService.getSalesmen();
+    }
+
+    @GetMapping(path = "/{id}")
+    public Salesmen getOneSalesmen(@PathVariable(required = true) Long id) {
+        return salesmenService.getOneSalesmen(id);
     }
 
     @PostMapping

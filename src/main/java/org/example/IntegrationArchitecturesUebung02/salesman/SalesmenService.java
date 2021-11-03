@@ -2,7 +2,6 @@ package org.example.IntegrationArchitecturesUebung02.salesman;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +37,6 @@ public class SalesmenService {
         }
     }
 
-    @Transactional
     public void updateSalesmen(Long sid, Salesmen salesmen) {
         if(!salesmenRepository.findSalesmenBySid(sid).isPresent()) {
             System.out.println("Sid does not exist");
@@ -51,7 +49,18 @@ public class SalesmenService {
             salesmenRepository.save(salesmen1);
         }
     }
+
+    public Salesmen getOneSalesmen(Long sid) {
+        if(!salesmenRepository.findSalesmenBySid(sid).isPresent()) {
+            System.out.println("Sid does not exist");
+            return null;
+        } else {
+            String id = salesmenRepository.findSalesmenBySid(sid).get().getId();
+            return salesmenRepository.findById(id).get();
+        }
+    }
 }
+
 
 
 
